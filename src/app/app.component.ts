@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { testUserAgent } from '@ionic/core/dist/types/utils/platform';
 
 @Component({
   selector: 'app-root',
@@ -20,12 +21,10 @@ export class AppComponent {
       title: 'Chamados',
       url: '/list',
       icon: 'list'
-    },
-    {
-      title: 'Portal Web',
-      icon: 'list'
     }
   ];
+
+  portalWeb = 'http://localhost:8080';
 
   constructor(
     private platform: Platform,
@@ -41,4 +40,5 @@ export class AppComponent {
       this.splashScreen.hide();
     });
   }
+
 }
