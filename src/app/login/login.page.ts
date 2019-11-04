@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from '../services/authentication/login/login.service';
+import { Router } from '@angular/router';
 import { Login } from '../interfaces/login.model';
 import { User } from '../interfaces/user.model';
 import { ErrorSpringBoot } from '../interfaces/ErrorSpringBoot.model';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',

@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { Login } from 'src/app/interfaces/login.model';
-import { User } from 'src/app/interfaces/user.model';
 import { Router } from '@angular/router';
+import { User } from 'src/app/interfaces/user.model';
 import { AccountCredentials } from 'src/app/interfaces/accountCredentials.model';
+import { Login } from 'src/app/interfaces/login.model';
 
 @Injectable({
   providedIn: 'root'
