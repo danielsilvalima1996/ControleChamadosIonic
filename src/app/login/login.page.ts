@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Login } from '../interfaces/login.model';
 import { User } from '../interfaces/user.model';
 import { ErrorSpringBoot } from '../interfaces/ErrorSpringBoot.model';
+import { LoadingController } from '@ionic/angular/dist/providers/loading-controller';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +24,8 @@ export class LoginPage implements OnInit {
   constructor(
     private fb: FormBuilder,
     private loginService: LoginService,
-    private router: Router
+    private router: Router,
+    public loadingController: LoadingController
   ) { }
 
   ngOnInit() {
@@ -37,12 +39,12 @@ export class LoginPage implements OnInit {
       this.constValue.button = this.loginForm.invalid;
     })
 
-    // this.loginService
-    // .getIsLogged$.subscribe((data) => {
-    //   if (data) {
-    //     this.router.navigate(['dashboard']);
-    //   }
-    // })
+    this.loginService
+    .getIsLogged$.subscribe((data) => {
+      if (data) {
+        this.router.navigate(['home']);
+      }
+    })
   }
 
   get controls() {
@@ -78,6 +80,15 @@ export class LoginPage implements OnInit {
           
         })
     }
+  }
+
+  async loading() {
+    const loading = await this.loadingController.create({
+      spinner: null,
+      duration: 7000,
+      message: 'Entrando',
+    });
+    return await loading.present();
   }
 
 }
