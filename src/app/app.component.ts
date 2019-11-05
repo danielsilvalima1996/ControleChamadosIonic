@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 
-import { Platform } from '@ionic/angular';
+import { Platform, AlertController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { testUserAgent } from '@ionic/core/dist/types/utils/platform';
+import { LoginService } from './services/authentication/login/login.service';
 
 @Component({
   selector: 'app-root',
@@ -29,7 +30,9 @@ export class AppComponent {
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    private loginService: LoginService,
+    public alertController: AlertController
   ) {
     this.initializeApp();
   }
@@ -39,6 +42,32 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
+  }
+
+  logout() {
+    this.loginService.logout();
+  }
+
+  async presentAlertConfirm() {
+    const alert = await this.alertController.create({
+      header: 'Confirme!',
+      message: 'Deseja sair?',
+      buttons: [
+        {
+          text: 'Sair',
+          role: 'sair',
+          handler: () => this.logout()
+        },
+        {
+          text: 'Cancelar',
+          role: 'cancelar',
+          cssClass: 'secondary',
+          handler: () => {}
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
 }

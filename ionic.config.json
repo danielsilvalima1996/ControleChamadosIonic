@@ -1,5 +1,7 @@
 {
   "name": "ControleChamadosIonic",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

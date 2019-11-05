@@ -16,8 +16,8 @@ export class LoginPage implements OnInit {
   loginForm: FormGroup;
 
   constValue = {
-    button: <boolean> false,
-    loading: <boolean> null
+    button: <boolean>false,
+    loading: <boolean>null
   }
 
   constructor(
@@ -33,16 +33,18 @@ export class LoginPage implements OnInit {
     })
 
     this.loginForm.valueChanges
-    .subscribe((_) => {
-      this.constValue.button = this.loginForm.invalid;
-    })
+      .subscribe((_) => {
+        this.constValue.button = this.loginForm.invalid;
+      })
 
     this.loginService
-    .getIsLogged$.subscribe((data) => {
-      if (data) {
-        this.router.navigate(['home']);
-      }
-    })
+      .getIsLogged$.subscribe((data) => {
+        if (data) {
+          this.router.navigate(['home']);
+        } else {
+          this.loginService.logout()
+        }
+      })
   }
 
   get controls() {
@@ -58,25 +60,24 @@ export class LoginPage implements OnInit {
       this.loginService
         .login(this.loginForm.value)
         .subscribe((data: Login) => {
-          console.log(data);
-          
+          const jwtToken = `Bearer ${data.token}`;
+          sessionStorage.setItem('token', jwtToken);
 
-        const jwtToken = `Bearer ${data.token}`;
-        sessionStorage.setItem('token', jwtToken);
+          const userInformation: User = data.user;
+          sessionStorage.setItem('user', JSON.stringify(userInformation));
+          this.constValue.loading = true;
+          this.loginService.setUserInformation$(userInformation);
 
-        const userInformation: User = data.user;
-        sessionStorage.setItem('user', JSON.stringify(userInformation));
-        this.constValue.loading = true;
-        this.loginService.setUserInformation$(userInformation);
+          this.loginService.setIsLogged$(true);
 
-        this.loginService.setIsLogged$(true);
+          this.router.navigate(['dashboard']);
         },
-        (error: ErrorSpringBoot) => {
-          this.loginService.setIsLogged$(false);
-          this.constValue.loading = false;
-          console.log(error);
-          
-        })
+          (error: ErrorSpringBoot) => {
+            this.loginService.setIsLogged$(false);
+            this.constValue.loading = false;
+            console.log(error);
+
+          })
     }
   }
 
