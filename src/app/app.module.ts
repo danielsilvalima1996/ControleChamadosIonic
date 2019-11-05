@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { InterceptorService } from './services/authentication/interceptor/interceptor.service';
+import { ChamadosListPage } from './chamados/chamados-list/chamados-list.page';
 
 @NgModule({
   declarations: [AppComponent],
