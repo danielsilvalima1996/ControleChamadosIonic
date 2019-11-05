@@ -20,12 +20,15 @@ export class AppComponent {
     },
     {
       title: 'Chamados',
-      url: '/list',
+      url: '/chamados-list',
       icon: 'list'
+    },
+    {
+      title: 'Trocar Senha',
+      url: '/trocar-senha',
+      icon: 'key'
     }
   ];
-
-  portalWeb = 'http://localhost:8080';
 
   constructor(
     private platform: Platform,
