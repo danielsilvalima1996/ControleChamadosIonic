@@ -1,9 +1,22 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>trocarSenha</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Trocar Senha</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+
+  <form [formGroup]="trocarSenhaForm">
+    <ion-input type="password" placeholder="Senha Atual" formControlName="atual"></ion-input>
+    <ion-input type="password" placeholder="Nova Senha" formControlName="nova"></ion-input>
+    <ion-input type="password" placeholder="Confirme Senha" formControlName="confirme"></ion-input>
+  </form>
+
+  <ion-button expand="block" (click)="trocarSenha()" [disabled]="constValue.button">Trocar Senha</ion-button>
+
+  {{trocarSenhaForm.valid}}
 
 </ion-content>
