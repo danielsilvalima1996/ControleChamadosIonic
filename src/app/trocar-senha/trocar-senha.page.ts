@@ -19,6 +19,15 @@ export class TrocarSenhaPage implements OnInit {
     id: <number>null
   }
 
+  // numero = [
+  //   { id: 1, nome: '1', sexo: 'm' },
+  //   { id: 2, nome: '2', sexo: 'm' },
+  //   { id: 3, nome: '3', sexo: 'm' },
+  //   { id: 4, nome: '4', sexo: 'm' },
+  //   { id: 5, nome: '5', sexo: 'm' },
+  //   { id: 6, nome: '6', sexo: 'm' }
+  // ];
+
   constructor(
     private fb: FormBuilder,
     private trocarSenhaService: TrocarSenhaService,
