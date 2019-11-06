@@ -4,11 +4,11 @@ import { ChamadosListPageModule } from './chamados/chamados-list/chamados-list.m
 import { ChamadosDetailPageModule } from './chamados/chamados-detail/chamados-detail.module';
 
 const routes: Routes = [
-  // {
-  //   path: '',
-  //   redirectTo: 'login',
-  //   pathMatch: 'full'
-  // },
+  {
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full'
+  },
   {
     path: 'home',
     loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)

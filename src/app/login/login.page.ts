@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Login } from '../interfaces/login.model';
 import { User } from '../interfaces/user.model';
 import { ErrorSpringBoot } from '../interfaces/ErrorSpringBoot.model';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -23,13 +24,14 @@ export class LoginPage implements OnInit {
   constructor(
     private fb: FormBuilder,
     private loginService: LoginService,
-    private router: Router
+    private router: Router,
+    public alertController: AlertController
   ) { }
 
   ngOnInit() {
     this.loginForm = this.fb.group({
-      username: ['daniel@daniel.com.br', Validators.email],
-      password: ['12345678', Validators.minLength(8)]
+      username: ['', Validators.email],
+      password: ['', Validators.minLength(8)]
     })
 
     this.loginForm.valueChanges
@@ -70,7 +72,7 @@ export class LoginPage implements OnInit {
 
           this.loginService.setIsLogged$(true);
 
-          this.router.navigate(['dashboard']);
+          this.router.navigate(['home']);
         },
           (error: ErrorSpringBoot) => {
             this.loginService.setIsLogged$(false);
@@ -79,6 +81,19 @@ export class LoginPage implements OnInit {
 
           })
     }
+  }
+
+  async esqueciSenha() {
+    const alert = await this.alertController.create({
+      header: 'Esqueci Senha',
+      subHeader: 'Contato',
+      message: 'Entre em contato com a Lobios!'
+              +'Telefone: (11) 4502-1053'
+              + 'E-mail: contato@lobios.com.br',
+      buttons: ['OK']
+    });
+
+    await alert.present();
   }
 
 }

@@ -14,7 +14,7 @@ import { LoginService } from './services/authentication/login/login.service';
 export class AppComponent {
   public appPages = [
     {
-      title: 'Dashboard',
+      title: 'Home',
       url: '/home',
       icon: 'home'
     },
