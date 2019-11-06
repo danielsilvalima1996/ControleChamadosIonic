@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ChamadosListService } from 'src/app/services/chamados/chamados-list/chamados-list.service';
+import { Chamados } from 'src/app/interfaces/chamados.model';
+import { IonInfiniteScroll } from '@ionic/angular';
 
 @Component({
   selector: 'app-chamados-list',
@@ -9,38 +11,16 @@ import { ChamadosListService } from 'src/app/services/chamados/chamados-list/cha
 })
 export class ChamadosListPage implements OnInit {
 
+  @ViewChild (IonInfiniteScroll,{static: true}) infiniteScroll: IonInfiniteScroll;
+
   public page = {
     title:'Chamados'
   }
 
   constValue = {
-    id:<number>0
+    id:<number>0,
+    chamados:<Array<Chamados>>[]
   }
-
-  // private selectedItem: any;
-  // private icons = [
-  //   'flask',
-  //   'wifi',
-  //   'beer',
-  //   'football',
-  //   'basketball',
-  //   'paper-plane',
-  //   'american-football',
-  //   'boat',
-  //   'bluetooth',
-  //   'build'
-  // ];
-  // public items: Array<{ title: string; note: string; icon: string }> = [];
-  // router: any;
-  // constructor() {
-  //   for (let i = 1; i < 11; i++) {
-  //     this.items.push({
-  //       title: 'Item ' + i,
-  //       note: 'This is item #' + i,
-  //       icon: this.icons[Math.floor(Math.random() * this.icons.length)]
-  //     });
-  //   }
-  // }
 
   constructor(
     private router: Router,
@@ -55,31 +35,30 @@ export class ChamadosListPage implements OnInit {
   findChamados(){
     this.chamadosListService.findChamados()
     .subscribe((data)=>{
-      console.log(data);
-      
+      this.constValue.chamados = data.content;
     })
   }
 
-  // getAll(page: number) {
-  //   return new Promise((resolve, reject) => {
-
-  //     let url = this.API_URL + 'users/?per_page=10&page=' + page;
-
-  //     this.http.get(url)
-  //       .subscribe((result: any) => {
-  //         resolve(result.json());
-  //       },
-  //       (error) => {
-  //         reject(error.json());
-  //       });
-  //   });
-  // }
-
-
-  
 
   chamadosDetail(item) {
     // this.router.navigate(['/chamados-detail', JSON.stringify(item)]);
     this.router.navigate(['/chamados-detail', this.constValue.id], { relativeTo: this.route });
+  }
+
+  loadData(event) {
+    setTimeout(() => {
+      event.target.complete();
+      this.chamadosListService.findChamados()
+      .subscribe((data)=>{
+        if (data.size == 1000) {
+          event.target.disabled = true;
+        }
+
+      })
+    }, 500);
+  }
+
+  toggleInfiniteScroll() {
+    this.infiniteScroll.disabled = !this.infiniteScroll.disabled;
   }
 }
