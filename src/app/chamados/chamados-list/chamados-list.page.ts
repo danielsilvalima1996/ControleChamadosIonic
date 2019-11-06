@@ -36,12 +36,17 @@ export class ChamadosListPage implements OnInit {
     this.chamadosListService.findChamados()
     .subscribe((data)=>{
       this.constValue.chamados = data.content;
+
+      data.content.map((item)=>{
+        Object.keys(item).map((data)=>{
+          this.constValue.id = item.idChamado
+        })
+        
+      })
     })
   }
 
-
   chamadosDetail(item) {
-    // this.router.navigate(['/chamados-detail', JSON.stringify(item)]);
     this.router.navigate(['/chamados-detail', this.constValue.id], { relativeTo: this.route });
   }
 
@@ -61,4 +66,11 @@ export class ChamadosListPage implements OnInit {
   toggleInfiniteScroll() {
     this.infiniteScroll.disabled = !this.infiniteScroll.disabled;
   }
+
+  // filtrarChamados() {
+  //   this.hasFilter = false;
+  //   this.feeds = this.noFilter.filter((item) => {
+  //       return item.data.title.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
+  //   });
+  // }
 }

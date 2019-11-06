@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: 'trocar-senha', loadChildren: './trocar-senha/trocar-senha.module#TrocarSenhaPageModule' },
   /* Paths Chamados*/
   { path: 'chamados-list', loadChildren: () => import ('./chamados/chamados-list/chamados-list.module').then(m =>ChamadosListPageModule) },
-  { path: 'chamados-detail', loadChildren: () => import ('./chamados/chamados-detail/chamados-detail.module').then(m =>ChamadosDetailPageModule) }
+  { path: 'chamados-detail/:idChamado', loadChildren: () => import ('./chamados/chamados-detail/chamados-detail.module').then(m =>ChamadosDetailPageModule) }
 ];
 
 @NgModule({
