@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="tertiary">
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
@@ -8,17 +8,23 @@
 </ion-header>
 
 <ion-content>
-
+<div class="login">
   <form [formGroup]="trocarSenhaForm">
-    <ion-input type="password" placeholder="Senha Atual" formControlName="atual"></ion-input>
-    <ion-input type="password" placeholder="Nova Senha" formControlName="nova"></ion-input>
-    <ion-input type="password" placeholder="Confirme Senha" formControlName="confirme"></ion-input>
+    <ion-label>Senha Atual</ion-label>
+    <div class="spacer" style="height:7px;" id="cameraTabDefaultPage-spacer1"></div>
+    <ion-input  clearInput type="password" placeholder="Senha Atual" formControlName="atual"></ion-input>
+    <div class="spacer" style="height:7px;" id="cameraTabDefaultPage-spacer1"></div>
+    <ion-label>Nova Senha</ion-label>
+    <div class="spacer" style="height:7px;" id="cameraTabDefaultPage-spacer1"></div>
+    <ion-input  clearInput type="password" placeholder="Nova Senha" formControlName="nova"></ion-input>
+    <div class="spacer" style="height:7px;" id="cameraTabDefaultPage-spacer1"></div>
+    <ion-label>Confirme a Senha</ion-label>
+    <div class="spacer" style="height:7px;" id="cameraTabDefaultPage-spacer1"></div>
+    <ion-input  clearInput type="password" placeholder="Confirme Senha" formControlName="confirme"></ion-input>
+    <div class="spacer" style="height:7px;" id="cameraTabDefaultPage-spacer1"></div>
   </form>
 
   <ion-button expand="block" (click)="trocarSenha()" [disabled]="constValue.button">Trocar Senha</ion-button>
-
-  {{trocarSenhaForm.valid}}
-
-  <!-- <p *ngFor="let item of numero">Id: {{item.id}} | Sexo: {{item.sexo}}</p> -->
+</div>
 
 </ion-content>

@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { Login } from '../interfaces/login.model';
 import { User } from '../interfaces/user.model';
 import { ErrorSpringBoot } from '../interfaces/ErrorSpringBoot.model';
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -25,7 +25,8 @@ export class LoginPage implements OnInit {
     private fb: FormBuilder,
     private loginService: LoginService,
     private router: Router,
-    public alertController: AlertController
+    public alertController: AlertController,
+    public loadingController: LoadingController
   ) { }
 
   ngOnInit() {
@@ -54,9 +55,10 @@ export class LoginPage implements OnInit {
   }
 
   login() {
-    this.constValue.loading = true;
+    this.loadingTela();
     if (this.loginForm.invalid) {
       this.constValue.loading = false;
+      this.loadingController.dismiss();
       return;
     } else {
       this.loginService
@@ -73,12 +75,11 @@ export class LoginPage implements OnInit {
           this.loginService.setIsLogged$(true);
 
           this.router.navigate(['home']);
+          this.loadingController.dismiss();
         },
           (error: ErrorSpringBoot) => {
             this.loginService.setIsLogged$(false);
-            this.constValue.loading = false;
-            console.log(error);
-
+            this.loadingController.dismiss();
           })
     }
   }
@@ -88,12 +89,24 @@ export class LoginPage implements OnInit {
       header: 'Esqueci Senha',
       subHeader: 'Contato',
       message: 'Entre em contato com a Lobios!'
-              +'Telefone: (11) 4502-1053'
-              + 'E-mail: contato@lobios.com.br',
+        + 'Telefone: (11) 4502-1053'
+        + 'E-mail: contato@lobios.com.br',
       buttons: ['OK']
     });
 
     await alert.present();
   }
 
+  async loadingTela() {
+    const loading = await this.loadingController.create({
+      spinner: 'bubbles',
+      duration: 7000,
+      message: 'Entrando...',
+      translucent: true,
+      cssClass: 'custom-class custom-loading'
+    });
+    return await loading.present();
+  }
 }
+
+
