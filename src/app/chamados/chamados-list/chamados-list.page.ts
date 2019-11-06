@@ -40,6 +40,8 @@ export class ChamadosListPage implements OnInit {
       data.content.map((item)=>{
         Object.keys(item).map((data)=>{
           this.constValue.id = item.idChamado
+          console.log(this.constValue.id);
+          
         })
         
       })
