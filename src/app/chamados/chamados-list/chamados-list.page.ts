@@ -69,10 +69,15 @@ export class ChamadosListPage implements OnInit {
     this.infiniteScroll.disabled = !this.infiniteScroll.disabled;
   }
 
-  // filtrarChamados() {
-  //   this.hasFilter = false;
-  //   this.feeds = this.noFilter.filter((item) => {
-  //       return item.data.title.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
-  //   });
-  // }
+  filtrarChamados(event) {
+    let val = event.target.value;
+    // console.log(val);
+    
+    this.chamadosListService.findChamados(this.constValue.id)
+    .subscribe((data) =>{
+      val = data
+      console.log(val);
+      
+    })
+  }
 }
