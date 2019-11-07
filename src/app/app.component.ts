@@ -30,12 +30,16 @@ export class AppComponent {
     }
   ];
 
+  constValue = {
+    menu: <boolean>true
+  }
+
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private loginService: LoginService,
-    public alertController: AlertController
+    private alertController: AlertController
   ) {
     this.initializeApp();
   }
@@ -44,6 +48,14 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.loginService
+        .getIsLogged$.subscribe((data) => {
+          if (!data) {
+            this.loginService.logout()
+          } else {
+            return
+          }
+        })
     });
   }
 
@@ -59,13 +71,16 @@ export class AppComponent {
         {
           text: 'Sair',
           role: 'sair',
-          handler: () => this.logout()
+          handler: () => {
+            this.logout();
+            this.constValue.menu = false;
+          }
         },
         {
           text: 'Cancelar',
           role: 'cancelar',
           cssClass: 'secondary',
-          handler: () => {}
+          handler: () => { }
         }
       ]
     });

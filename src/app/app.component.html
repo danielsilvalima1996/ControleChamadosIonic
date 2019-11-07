@@ -1,6 +1,6 @@
 <ion-app>
   <ion-split-pane contentId="main-content">
-    <ion-menu contentId="main-content" type="overlay">
+    <ion-menu *ngIf="constValue.menu" contentId="main-content" type="overlay">
       <ion-header class="menu">
         <ion-toolbar color="tertiary">
           <ion-title>Menu</ion-title>
