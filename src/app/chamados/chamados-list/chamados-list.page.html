@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="tertiary">
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
@@ -9,7 +9,7 @@
   </ion-toolbar>
 
 
-<ion-searchbar color="tertiary" clearIcon="close" placeholder="Filtrar Chamados" (ionInput)="filtrarChamados()"></ion-searchbar>
+<ion-searchbar autocomplete="on" clearIcon="close" placeholder="Filtrar Chamados" (ionInput)="filtrarChamados($event)"></ion-searchbar>
 </ion-header>
 
 <ion-content>

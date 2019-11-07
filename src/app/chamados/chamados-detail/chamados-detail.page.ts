@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { ChamadosListService } from 'src/app/services/chamados/chamados-list/chamados-list.service';
+import { Chamados } from 'src/app/interfaces/chamados.model';
 
 @Component({
   selector: 'app-chamados-detail',
@@ -10,6 +11,7 @@ import { ChamadosListService } from 'src/app/services/chamados/chamados-list/cha
 export class ChamadosDetailPage implements OnInit {
 
   constValue = {
+    chamados: <Array<Chamados>>[],
     id: <number>0
   }
 
@@ -20,10 +22,20 @@ export class ChamadosDetailPage implements OnInit {
 
   ngOnInit() {
     this.route.paramMap
-      .subscribe((paramMap: ParamMap) => {
-        this.constValue.id = parseInt(paramMap.get('id'), 10);
+      .subscribe((params: ParamMap) => {
+        this.constValue.id = parseInt(params.get('id'), 10);
       })
-    // this.findById(this.constValue.id);
+    this.findById(this.constValue.id);
+  }
+
+
+  findById(id: Number) {
+    this.chamadosService.findById(id)
+      .subscribe((data) => {
+        console.log(data);
+
+
+      })
   }
 
 }
