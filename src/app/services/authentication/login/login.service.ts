@@ -53,6 +53,7 @@ export class LoginService {
 
 
   login(credentials: AccountCredentials): Observable<Login> {
+    this.isLoggedIn$.next(true);
     return this.http.post(`${environment.url.apirest}/${this.relativeLink}`, credentials) as Observable<Login>;
   }
 

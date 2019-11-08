@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { testUserAgent } from '@ionic/core/dist/types/utils/platform';
 import { LoginService } from './services/authentication/login/login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -31,7 +32,7 @@ export class AppComponent {
   ];
 
   constValue = {
-    menu: <boolean>true
+    menu: <boolean>null
   }
 
   constructor(
@@ -39,7 +40,8 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private loginService: LoginService,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private router: Router
   ) {
     this.initializeApp();
   }
@@ -48,14 +50,15 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      this.loginService
-        .getIsLogged$.subscribe((data) => {
-          if (!data) {
-            this.loginService.logout()
-          } else {
-            return
-          }
-        })
+      this.loginService.getIsLogged$.subscribe((data) => {
+        if (data) {
+          this.router.navigate(['/home']);
+          this.constValue.menu = true;
+        } else {
+          this.router.navigate['/login'];
+          this.constValue.menu = false;
+        }
+      })
     });
   }
 
@@ -86,6 +89,10 @@ export class AppComponent {
     });
 
     await alert.present();
+  }
+
+  abrirPortal() {
+    window.open('htto://localhost:8080', '_system', 'location=yes');
   }
 
 }
