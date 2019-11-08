@@ -13,7 +13,7 @@ export class ChamadosDetailPage implements OnInit {
 
   constValue = {
     chamados: <Array<Chamados>>[],
-    id: <number>0
+    id: ''
   }
 
   chamadosDetailForm: FormGroup = this.fb.group({
@@ -47,14 +47,14 @@ export class ChamadosDetailPage implements OnInit {
 
   ngOnInit() {
     this.route.paramMap
-      .subscribe((params: ParamMap) => {
-        this.constValue.id = parseInt(params.get('idChamado'), 10);
-      })
-    this.findById(this.constValue.id);
+    .subscribe((params: ParamMap) => {
+      this.constValue.id = params.get('idChamado');
+    })
+    this.findById(this.constValue.id)
+
   }
 
-
-  findById(id: Number) {
+  findById(id) {
     this.chamadosService.findById(id)
       .subscribe((data) => {
         console.log(data);

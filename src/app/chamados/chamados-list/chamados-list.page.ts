@@ -41,7 +41,9 @@ export class ChamadosListPage implements OnInit {
   }
 
   chamadosDetail(item) {
-    this.constValue.id = item.idChamado;    
+    this.constValue.id = item;  
+    console.log(this.constValue.id);
+      
     this.router.navigate(['/chamados-detail', this.constValue.id]);
   }
 
