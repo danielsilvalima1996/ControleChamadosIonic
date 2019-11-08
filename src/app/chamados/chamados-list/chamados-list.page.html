@@ -15,8 +15,8 @@
 <ion-content>
 <!-- List of Sliding Items -->
 <ion-list>
-  <ion-item-sliding *ngFor="let item of constValue.chamados">
-    <ion-item (click)="findChamados()">
+  <ion-item-sliding (ionDrag)="item.idChamado" *ngFor="let item of constValue.chamados">
+    <ion-item (click)="chamadosDetail(item.idChamado)">
       <ion-label>{{item.idChamado}} - {{item.descricaoChamado}}</ion-label>
     </ion-item>
     <ion-item-options side="end">

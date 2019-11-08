@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { ChamadosListService } from 'src/app/services/chamados/chamados-list/chamados-list.service';
 import { Chamados } from 'src/app/interfaces/chamados.model';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-chamados-detail',
@@ -15,15 +16,39 @@ export class ChamadosDetailPage implements OnInit {
     id: <number>0
   }
 
+  chamadosDetailForm: FormGroup = this.fb.group({
+    idChamado: ['', []],
+    idEmpresa: ['', []],
+    idAnalista: ['', []],
+    idUsuario: ['', []],
+    dataAbertura: ['', []],
+    horaAbertura: ['', []],
+    dataFechamento: ['', []],
+    horaFechamento: ['', []],
+    tempoChamado: ['', []],
+    codigoStatusChamado: ['', []],
+    tipoChamado: ['', []],
+    subtipoChamado: ['', []],
+    descricaoChamado: ['', []],
+    solucaoChamado: ['', []]
+  })
+
   constructor(
     private route: ActivatedRoute,
-    private chamadosService: ChamadosListService
-  ) { }
+    private chamadosService: ChamadosListService,
+    private fb: FormBuilder,
+
+  ) {}
+
+
+  logForm(){
+    console.log(this.chamadosDetailForm.value)
+  }
 
   ngOnInit() {
     this.route.paramMap
       .subscribe((params: ParamMap) => {
-        this.constValue.id = parseInt(params.get('id'), 10);
+        this.constValue.id = parseInt(params.get('idChamado'), 10);
       })
     this.findById(this.constValue.id);
   }
