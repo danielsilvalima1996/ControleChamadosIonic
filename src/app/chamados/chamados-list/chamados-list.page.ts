@@ -11,57 +11,52 @@ import { IonInfiniteScroll } from '@ionic/angular';
 })
 export class ChamadosListPage implements OnInit {
 
-  @ViewChild (IonInfiniteScroll,{static: true}) infiniteScroll: IonInfiniteScroll;
+  @ViewChild(IonInfiniteScroll, { static: true }) infiniteScroll: IonInfiniteScroll;
 
   public page = {
-    title:'Chamados'
+    title: 'Chamados'
   }
 
   constValue = {
-    id:<number>0,
-    chamados:<Array<Chamados>>[]
+    id: <number>0,
+    chamados: <Array<Chamados>>[]
   }
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private chamadosListService: ChamadosListService
-  ){}
+  ) { }
 
   ngOnInit() {
     this.findChamados()
   }
 
-  findChamados(){
+  findChamados() {
     this.chamadosListService.findChamados()
-    .subscribe((data)=>{
-      this.constValue.chamados = data.content;
+      .subscribe((data) => {
+        this.constValue.chamados = data.content;
 
-      data.content.map((item)=>{
-        Object.keys(item).map((data)=>{
-          this.constValue.id = item.idChamado
-          console.log(this.constValue.id);
-          
-        })
-        
       })
-    })
   }
 
   chamadosDetail(item) {
-    this.router.navigate(['/chamados-detail', this.constValue.id], { relativeTo: this.route });
+    this.constValue.id = item;  
+    console.log(this.constValue.id);
+      
+    this.router.navigate(['/chamados-detail', this.constValue.id]);
   }
 
   loadData(event) {
     setTimeout(() => {
       event.target.complete();
       this.chamadosListService.findChamados()
-      .subscribe((data)=>{
-        if (data.size == 1000) {
-          event.target.disabled = true;
-        }
+        .subscribe((data) => {
+          if (data.size == 1000) {
+            event.target.disabled = true;
+          }
 
-      })
+        })
     }, 500);
   }
 
@@ -71,13 +66,11 @@ export class ChamadosListPage implements OnInit {
 
   filtrarChamados(event) {
     let val = event.target.value;
-    // console.log(val);
-    
     this.chamadosListService.findChamados(this.constValue.id)
-    .subscribe((data) =>{
-      val = data
-      console.log(val);
-      
-    })
+      .subscribe((data) => {
+        val = data
+        console.log(val);
+
+      })
   }
 }
