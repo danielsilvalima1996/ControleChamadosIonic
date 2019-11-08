@@ -4,6 +4,7 @@ import { TrocarSenhaService } from '../services/trocar-senha/trocar-senha.servic
 import { TrocarSenha } from '../interfaces/trocarSenha.model';
 import { LoginService } from '../services/authentication/login/login.service';
 import { ErrorSpringBoot } from '../interfaces/ErrorSpringBoot.model';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-trocar-senha',
@@ -31,7 +32,8 @@ export class TrocarSenhaPage implements OnInit {
   constructor(
     private fb: FormBuilder,
     private trocarSenhaService: TrocarSenhaService,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private alertController: AlertController
   ) { }
 
   ngOnInit() {
@@ -68,6 +70,7 @@ export class TrocarSenhaPage implements OnInit {
     if (this.trocarSenhaForm.invalid) {
       return;
     } else {
+      this.trocandoMensagem();
       let obj: TrocarSenha = {
         id: this.constValue.id,
         atual: this.controls.atual.value,
@@ -75,13 +78,42 @@ export class TrocarSenhaPage implements OnInit {
       }
       this.trocarSenhaService
         .trocarSenha(obj).subscribe((data) => {
-
+          this.sucessoMensagem();
         },
           (error: ErrorSpringBoot) => {
-
+            this.errorMensagem(error.error);
           })
     }
 
+  }
+
+  async errorMensagem(mensagem: string) {
+    const alert = await this.alertController.create({
+      header: 'Error ao trocar senha',
+      message: mensagem,
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+
+  async trocandoMensagem() {
+    const alert = await this.alertController.create({
+      header: 'Alterando a senha!',
+      message: 'Alterando a senha ...',
+      backdropDismiss: false
+    });
+
+    await alert.present();
+  }
+
+  async sucessoMensagem() {
+    const alert = await this.alertController.create({
+      header: 'Mensagem',
+      message: 'Senha Alterada com sucesso!'
+    });
+
+    await alert.present();
   }
 
 }

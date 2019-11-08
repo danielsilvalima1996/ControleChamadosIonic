@@ -31,13 +31,19 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
     this.loginForm = this.fb.group({
-      username: ['', Validators.email],
-      password: ['', Validators.minLength(8)]
+      username: ['daniel@daniel.com.br', Validators.email],
+      password: ['12345678', Validators.minLength(8)]
     })
 
     this.loginForm.valueChanges
       .subscribe((_) => {
         this.constValue.button = this.loginForm.invalid;
+      })
+
+      this.loginService.getIsLogged$.subscribe((data) => {
+        if (data == true) {
+          this.router.navigate(['/home']);
+        }
       })
   }
 
@@ -50,6 +56,7 @@ export class LoginPage implements OnInit {
     if (this.loginForm.invalid) {
       this.constValue.loading = false;
       this.loadingController.dismiss();
+      this.loginService.setIsLogged$(false);
       return;
     } else {
       this.loginService
@@ -71,6 +78,7 @@ export class LoginPage implements OnInit {
           (error: ErrorSpringBoot) => {
             this.loginService.setIsLogged$(false);
             this.loadingController.dismiss();
+            this.errorMensagem(error.message);
           })
     }
   }
@@ -82,6 +90,17 @@ export class LoginPage implements OnInit {
       message: 'Entre em contato com a Lobios!'
         + 'Telefone: (11) 4502-1053'
         + 'E-mail: contato@lobios.com.br',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+
+  async errorMensagem(mensagem: string) {
+    const alert = await this.alertController.create({
+      header: 'Error ao entrar',
+      subHeader: 'Error',
+      message: mensagem,
       buttons: ['OK']
     });
 

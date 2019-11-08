@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { Platform, AlertController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -12,7 +12,8 @@ import { Router } from '@angular/router';
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+
   public appPages = [
     {
       title: 'Home',
@@ -46,19 +47,22 @@ export class AppComponent {
     this.initializeApp();
   }
 
+  ngOnInit(): void {
+    this.loginService.getIsLogged$.subscribe((data) => {
+      if (data) {
+        this.router.navigate(['/home']);
+        this.constValue.menu = true;
+      } else {
+        this.router.navigate['/login'];
+        this.constValue.menu = false;
+      }
+    })
+  }
+
   initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      this.loginService.getIsLogged$.subscribe((data) => {
-        if (data) {
-          this.router.navigate(['/home']);
-          this.constValue.menu = true;
-        } else {
-          this.router.navigate['/login'];
-          this.constValue.menu = false;
-        }
-      })
     });
   }
 
