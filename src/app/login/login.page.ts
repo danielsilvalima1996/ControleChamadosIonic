@@ -39,15 +39,6 @@ export class LoginPage implements OnInit {
       .subscribe((_) => {
         this.constValue.button = this.loginForm.invalid;
       })
-
-    this.loginService
-      .getIsLogged$.subscribe((data) => {
-        if (data) {
-          this.router.navigate(['home']);
-        } else {
-          this.loginService.logout()
-        }
-      })
   }
 
   get controls() {
