@@ -28,6 +28,10 @@ export class ChamadosListService {
     return this.http.get(`${environment.url.apirest}/${this.relativeLink}/${id}`) as Observable<Chamados>;
   }
 
+  findIonic(filter: String): Observable<Chamados[]> {
+    return this.http.get(`${environment.url.apirest}/${this.relativeLink}/ionic?filter=${filter}`) as Observable<Chamados[]>;
+  }
+
   createChamado(chamados: any): Observable<Chamados> {
     return this.http.post(`${environment.url.apirest}/${this.relativeLink}`, chamados) as Observable<Chamados>;
   }

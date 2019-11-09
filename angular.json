@@ -102,8 +102,8 @@
             "scripts": [],
             "assets": [
               {
-                "glob": "favicon.ico",
-                "input": "src/",
+                "glob": "lobios-logo-cut.png",
+                "input": "src/assets",
                 "output": "/"
               },
               {

@@ -2,7 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ChamadosListService } from 'src/app/services/chamados/chamados-list/chamados-list.service';
 import { Chamados } from 'src/app/interfaces/chamados.model';
-import { IonInfiniteScroll } from '@ionic/angular';
+import { IonInfiniteScroll, AlertController } from '@ionic/angular';
+import { ErrorSpringBoot } from 'src/app/interfaces/ErrorSpringBoot.model';
 
 @Component({
   selector: 'app-chamados-list',
@@ -18,14 +19,15 @@ export class ChamadosListPage implements OnInit {
   }
 
   constValue = {
-    id: <number>0,
+    id: <number>null,
     chamados: <Array<Chamados>>[]
   }
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private chamadosListService: ChamadosListService
+    private chamadosListService: ChamadosListService,
+    private alertController: AlertController
   ) { }
 
   ngOnInit() {
@@ -41,9 +43,7 @@ export class ChamadosListPage implements OnInit {
   }
 
   chamadosDetail(item) {
-    this.constValue.id = item;  
-    console.log(this.constValue.id);
-      
+    this.constValue.id = item;
     this.router.navigate(['/chamados-detail', this.constValue.id]);
   }
 
@@ -65,12 +65,25 @@ export class ChamadosListPage implements OnInit {
   }
 
   filtrarChamados(event) {
-    let val = event.target.value;
-    this.chamadosListService.findChamados(this.constValue.id)
+    let val: string = event.target.value;
+    this.chamadosListService
+      .findIonic(val)
       .subscribe((data) => {
-        val = data
-        console.log(val);
-
-      })
+        this.constValue.chamados = data.map(item => item);
+      },
+        (error: ErrorSpringBoot) => {
+          this.errorMensagem(error.error);
+        })
   }
+
+  async errorMensagem(mensagem: string) {
+    const alert = await this.alertController.create({
+      header: 'Error ao trocar senha',
+      message: mensagem,
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+
 }

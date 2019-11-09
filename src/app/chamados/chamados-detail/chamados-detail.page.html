@@ -1,53 +1,56 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="tertiary">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="chamados-list"></ion-back-button>
+      <ion-back-button defaultHref="/chamados-list"></ion-back-button>
     </ion-buttons>
     <ion-title>Detalhes Chamado</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-        <ion-item>
-          <ion-label>{{item.idChamado}}</ion-label>
-          <!-- <ion-input type="text" formControlName="idchamado"></ion-input> -->
-        </ion-item>
-        <ion-item>
-          <ion-label>{{item.idEmpresa}}</ion-label>
-          <!-- <ion-textarea formControlName="idEmpresa"></ion-textarea> -->
-        </ion-item>
+  <ion-list>
+    <ion-item>
+      <ion-label><span class="bolder">Id Chamado: </span><span class="bolder">Id Chamado:</span> {{chamado.idChamado}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label><span class="bolder">Nome Fantasia: </span>{{chamado.idEmpresa}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label><span class="bolder">Analista: </span>{{chamado.idAnalista}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label><span class="bolder">Usuário: </span>{{chamado.idUsuario}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label><span class="bolder">Data Abertura: </span>{{chamado.dataAbertura}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label><span class="bolder">Hora Abertura: </span>{{chamado.horaAbertura}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label><span class="bolder">Data Fechamento: </span>{{chamado.dataFechamento}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label><span class="bolder">Hora Fechamento: </span>{{chamado.horaFechamento}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label><span class="bolder">Tempo Chamado: </span>{{chamado.tempoChamado}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label><span class="bolder">Status: </span>{{chamado.codigoStatusChamado}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label><span class="bolder">Tipo Chamado: </span>{{chamado.tipoChamado}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label><span class="bolder">Subtipo Chamado: </span>{{chamado.subtipoChamado}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label><span class="bolder">Descrição: </span>{{chamado.descricaoChamado}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label><span class="bolder">Solução: </span>{{chamado.solucaoChamado}}</ion-label>
+    </ion-item>
+  </ion-list>
 
 </ion-content>
-
-
-<!-- <form [formGroup]="chamadosFormView" class="po-row">
-    <po-input class="po-md-4" p-label="Empresa" p-readonly="true" formControlName="idEmpresa">
-    </po-input>
-    <po-input class="po-md-4" p-label="Analista" p-readonly="true" formControlName="idAnalista">
-    </po-input>
-    <po-input class="po-md-4" p-label="Usuário" p-readonly="true" formControlName="idUsuario">
-    </po-input>
-    <po-input class="po-md-2" p-label="Data Abertura" p-readonly="true" formControlName="dataAbertura">
-    </po-input>
-    <po-input class="po-md-2" p-mask="99:99" p-label="Hora Abertura" p-readonly="true"
-        formControlName="horaAbertura"></po-input>
-    <po-input class="po-md-2" p-label="Data Fechamento" p-readonly="true" formControlName="dataFechamento">
-    </po-input>
-    <po-input class="po-md-2" p-mask="99:99" p-label="Hora Fechamento" p-readonly="true"
-        formControlName="horaFechamento"></po-input>
-    <po-input class="po-md-2" p-mask="99:59" p-label="Tempo" p-readonly="true" formControlName="tempoChamado">
-    </po-input>
-    <po-input class="po-md-2" p-label="Status" p-readonly="true" formControlName="codigoStatusChamado">
-    </po-input>
-    <po-input class="po-md-3" p-label="Tipo Chamado" p-readonly="true" formControlName="tipoChamado"></po-input>
-    <po-input class="po-md-3" p-label="Subtipo Chamado" p-readonly="true" formControlName="subtipoChamado">
-    </po-input>
-    <div class="po-row">
-        <po-textarea class="po-md-6" p-label="Descricão Chamado" p-rows="4" p-readonly="true"
-            formControlName="descricaoChamado">
-        </po-textarea>
-        <po-textarea class="po-md-6" p-label="Solucão Chamado" p-rows="4" p-readonly="true"
-            formControlName="solucaoChamado">
-        </po-textarea>
-    </div>
-</form> -->
