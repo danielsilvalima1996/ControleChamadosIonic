@@ -1,3 +1,14 @@
+<div *ngIf="showSplash" class="splash">
+    <div class="spinner"></div>
+  </div>
+
+   
+  <!--  PARA FUNCIONAR É NECESSÁRIO DE DUAS IMAGENS NESSAS CONDIÇÕES:
+  /resources/icon.png - pelo menos 1024x1024px
+  /resources/splash.png - pelo menos 2732 × 2732px 
+-->
+   
+
 <ion-app>
   <ion-split-pane contentId="main-content">
     <ion-menu *ngIf="constValue.menu" contentId="main-content" type="overlay">
