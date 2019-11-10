@@ -6,6 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { testUserAgent } from '@ionic/core/dist/types/utils/platform';
 import { LoginService } from './services/authentication/login/login.service';
 import { Router } from '@angular/router';
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -33,8 +34,11 @@ export class AppComponent implements OnInit {
   ];
 
   constValue = {
-    menu: <boolean>null
+    menu: <boolean>null,
   }
+
+  showSplash = true;
+
 
   constructor(
     private platform: Platform,
@@ -63,6 +67,8 @@ export class AppComponent implements OnInit {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+
+      timer(3000).subscribe(() => this.showSplash = false)
     });
   }
 
