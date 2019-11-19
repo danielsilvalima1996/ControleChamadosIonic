@@ -8,8 +8,6 @@ import { LoginService } from './services/authentication/login/login.service';
 import { Router } from '@angular/router';
 import { timer } from 'rxjs';
 
-import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
-
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -48,8 +46,7 @@ export class AppComponent implements OnInit {
     private statusBar: StatusBar,
     private loginService: LoginService,
     private alertController: AlertController,
-    private router: Router,
-    private screenOrientation: ScreenOrientation
+    private router: Router
   ) {
     this.initializeApp();
   }
@@ -64,8 +61,6 @@ export class AppComponent implements OnInit {
         this.constValue.menu = false;
       }
     })
-
-    this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE);
   }
 
   initializeApp() {
