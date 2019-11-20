@@ -3,6 +3,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { ChamadosListService } from 'src/app/services/chamados/chamados-list/chamados-list.service';
 import { Chamados } from 'src/app/interfaces/chamados.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
 @Component({
   selector: 'app-chamados-detail',
@@ -38,10 +39,13 @@ export class ChamadosDetailPage implements OnInit {
     private route: ActivatedRoute,
     private chamadosService: ChamadosListService,
     private fb: FormBuilder,
+    private screenOrientation: ScreenOrientation
 
   ) { }
 
   ngOnInit() {
+    this.getScreenOrientationPortrait();
+
     this.route.paramMap
       .subscribe((params: ParamMap) => {
         this.constValue.id = parseInt(params.get('idChamado'), 10);
@@ -83,7 +87,7 @@ export class ChamadosDetailPage implements OnInit {
               this.chamado[item] = data[item];
               break;
             case 'horaFechamento':
-                data[item] != '' ? data[item] = `${data[item].substr(0, 2)}:${data[item].substr(2, 2)}` : data[item] = '-';
+              data[item] != '' ? data[item] = `${data[item].substr(0, 2)}:${data[item].substr(2, 2)}` : data[item] = '-';
               this.chamado[item] = data[item];
               break;
             case 'tempoChamado':
@@ -129,6 +133,15 @@ export class ChamadosDetailPage implements OnInit {
           }
         })
       })
+  }
+
+  //Vertical
+  getScreenOrientationPortrait() {
+    try {
+      this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT)
+    } catch (error) {
+      console.error(error)
+    }
   }
 
 }

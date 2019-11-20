@@ -6,6 +6,7 @@ import { Login } from '../interfaces/login.model';
 import { User } from '../interfaces/user.model';
 import { ErrorSpringBoot } from '../interfaces/ErrorSpringBoot.model';
 import { AlertController, LoadingController } from '@ionic/angular';
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
 @Component({
   selector: 'app-login',
@@ -26,10 +27,12 @@ export class LoginPage implements OnInit {
     private loginService: LoginService,
     private router: Router,
     public alertController: AlertController,
-    public loadingController: LoadingController
+    public loadingController: LoadingController,
+    private screenOrientation: ScreenOrientation
   ) { }
 
   ngOnInit() {
+    this.getScreenOrientationPortrait(); // Verificar Erro no Console, pois não está avaliado no Browser
     this.loginForm = this.fb.group({
       username: ['daniel@daniel.com.br', Validators.email],
       password: ['12345678', Validators.minLength(8)]
@@ -40,11 +43,11 @@ export class LoginPage implements OnInit {
         this.constValue.button = this.loginForm.invalid;
       })
 
-      this.loginService.getIsLogged$.subscribe((data) => {
-        if (data == true) {
-          this.router.navigate(['/home']);
-        }
-      })
+    this.loginService.getIsLogged$.subscribe((data) => {
+      if (data == true) {
+        this.router.navigate(['/home']);
+      }
+    })
   }
 
   get controls() {
@@ -116,6 +119,24 @@ export class LoginPage implements OnInit {
       cssClass: 'custom-class custom-loading'
     });
     return await loading.present();
+  }
+
+  //Vertical
+  getScreenOrientationPortrait() {
+    try {
+      this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  // Horizontal
+  getScreenOrientationLandsCape() {
+    try {
+      this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE)
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
 

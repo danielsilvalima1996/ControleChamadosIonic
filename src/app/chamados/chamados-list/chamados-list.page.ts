@@ -4,6 +4,7 @@ import { ChamadosListService } from 'src/app/services/chamados/chamados-list/cha
 import { Chamados } from 'src/app/interfaces/chamados.model';
 import { IonInfiniteScroll, AlertController } from '@ionic/angular';
 import { ErrorSpringBoot } from 'src/app/interfaces/ErrorSpringBoot.model';
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
 @Component({
   selector: 'app-chamados-list',
@@ -27,11 +28,13 @@ export class ChamadosListPage implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private chamadosListService: ChamadosListService,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private screenOrientation: ScreenOrientation
   ) { }
 
   ngOnInit() {
-    this.findChamados()
+    this.getScreenOrientationPortrait();
+    this.findChamados();
   }
 
   findChamados() {
@@ -84,6 +87,15 @@ export class ChamadosListPage implements OnInit {
     });
 
     await alert.present();
+  }
+
+  //Vertical
+  getScreenOrientationPortrait() {
+    try {
+      this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT)
+    } catch (error) {
+      console.error(error)
+    }
   }
 
 }
