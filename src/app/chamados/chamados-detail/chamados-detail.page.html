@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
+  <ion-list *ngIf="chamado">
     <ion-item>
       <ion-label><span class="bolder">Id Chamado: </span><span class="bolder">Id Chamado:</span> {{chamado.idChamado}}</ion-label>
     </ion-item>

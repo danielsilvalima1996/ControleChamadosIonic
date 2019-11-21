@@ -4,6 +4,7 @@ import { ChamadosListService } from 'src/app/services/chamados/chamados-list/cha
 import { Chamados } from 'src/app/interfaces/chamados.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
+import { ChamadosDetail } from 'src/app/interfaces/chamados-detail.model';
 
 @Component({
   selector: 'app-chamados-detail',
@@ -16,7 +17,7 @@ export class ChamadosDetailPage implements OnInit {
     id: <number>null
   }
 
-  chamado = {}
+  chamado: ChamadosDetail;
 
   chamadosDetailForm: FormGroup = this.fb.group({
     idChamado: ['', []],
