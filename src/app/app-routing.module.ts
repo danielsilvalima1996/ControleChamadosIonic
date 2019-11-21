@@ -11,15 +11,11 @@ const routes: Routes = [
     redirectTo: 'login',
     pathMatch: 'full'
   },
-  {
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
-  },
+  { path: 'home', loadChildren: './home/home.module#HomePageModule' },
   { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
   { path: 'trocar-senha', loadChildren: './trocar-senha/trocar-senha.module#TrocarSenhaPageModule' },
-  /* Paths Chamados*/
-   { path: 'chamados-list', loadChildren: () => import ('./chamados/chamados-list/chamados-list.module').then(m =>ChamadosListPageModule) },
-   { path: 'chamados-detail/:idChamado', loadChildren: () => import ('./chamados/chamados-detail/chamados-detail.module').then(m =>ChamadosDetailPageModule) }
+  { path: 'chamados-list', loadChildren: './chamados/chamados-list/chamados-list.module#ChamadosListPageModule' },
+  { path: 'chamados-detail/:idChamado', loadChildren: './chamados/chamados-detail/chamados-detail.module#ChamadosDetailPageModule' }
 ];
 
 @NgModule({
