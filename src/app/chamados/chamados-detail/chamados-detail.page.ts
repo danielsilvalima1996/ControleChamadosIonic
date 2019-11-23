@@ -17,7 +17,8 @@ export class ChamadosDetailPage implements OnInit {
     id: <number>null
   }
 
-  chamado: ChamadosDetail;
+  // chamado: ChamadosDetail;
+  chamado = {}
 
   chamadosDetailForm: FormGroup = this.fb.group({
     idChamado: ['', []],
@@ -40,12 +41,12 @@ export class ChamadosDetailPage implements OnInit {
     private route: ActivatedRoute,
     private chamadosService: ChamadosListService,
     private fb: FormBuilder,
-    private screenOrientation: ScreenOrientation
+    private screenOrientation: ScreenOrientation,
 
   ) { }
 
   ngOnInit() {
-    this.getScreenOrientationPortrait();
+    // this.getScreenOrientationPortrait();
 
     this.route.paramMap
       .subscribe((params: ParamMap) => {
@@ -81,10 +82,7 @@ export class ChamadosDetailPage implements OnInit {
               data[item] != '' ? data[item] = `${data[item].substr(0, 2)}:${data[item].substr(2, 2)}` : data[item] = '-';
               this.chamado[item] = data[item];
               break;
-            case 'dataFechamento':
-              data[item].length == 10 ?
-                data[item] = `${data[item].substr(8, 2)}/${data[item].substr(5, 2)}/${data[item].substr(0, 4)}`
-                : data[item] = '';
+            case 'dataFechamento': data[item].length == 10 ? data[item] = `${data[item].substr(8, 2)}/${data[item].substr(5, 2)}/${data[item].substr(0, 4)}`: data[item] = '';
               this.chamado[item] = data[item];
               break;
             case 'horaFechamento':
