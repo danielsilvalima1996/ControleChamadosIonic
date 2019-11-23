@@ -18,7 +18,22 @@ export class ChamadosDetailPage implements OnInit {
   }
 
   // chamado: ChamadosDetail;
-  chamado = {}
+  chamado = {
+    idChamado: <number>null,
+    idEmpresa: <string>'',
+    idAnalista: <string>'',
+    idUsuario: <string>'',
+    dataAbertura: <string>'',
+    horaAbertura: <string>'',
+    dataFechamento: <string>'',
+    horaFechamento: <string>'',
+    tempoChamado: <string>'',
+    codigoStatusChamado: <string>'',
+    tipoChamado: <string>'',
+    subtipoChamado: <string>'',
+    descricaoChamado: <string>'',
+    solucaoChamado: <string>'',
+  }
 
   chamadosDetailForm: FormGroup = this.fb.group({
     idChamado: ['', []],
@@ -82,16 +97,26 @@ export class ChamadosDetailPage implements OnInit {
               data[item] != '' ? data[item] = `${data[item].substr(0, 2)}:${data[item].substr(2, 2)}` : data[item] = '-';
               this.chamado[item] = data[item];
               break;
-            case 'dataFechamento': data[item].length == 10 ? data[item] = `${data[item].substr(8, 2)}/${data[item].substr(5, 2)}/${data[item].substr(0, 4)}`: data[item] = '';
-              this.chamado[item] = data[item];
+            case 'dataFechamento':
+              if (data[item] != null && data[item] != undefined && data[item] != '') {
+                this.chamado[item] = `${data[item].substr(8, 2)}/${data[item].substr(5, 2)}/${data[item].substr(0, 4)}`;
+              } else {
+                this.chamado[item] = data[item];
+              }
               break;
             case 'horaFechamento':
-              data[item] != '' ? data[item] = `${data[item].substr(0, 2)}:${data[item].substr(2, 2)}` : data[item] = '-';
-              this.chamado[item] = data[item];
+              if (data[item] != null && data[item] != undefined && data[item] != '') {
+                this.chamado[item] = data[item] = `${data[item].substr(0, 2)}:${data[item].substr(2, 2)}`;
+              } else {
+                this.chamado[item] = '-'
+              }
               break;
             case 'tempoChamado':
-              data[item] != '' ? data[item] = `${data[item].substr(0, 2)}:${data[item].substr(2, 2)}` : data[item] = '-';
-              this.chamado[item] = data[item];
+              if (data[item] != null && data[item] != undefined && data[item] != '') {
+                this.chamado[item] = data[item] = `${data[item].substr(0, 2)}:${data[item].substr(2, 2)}`;
+              } else {
+                this.chamado[item] = '-'
+              }
               break;
             case 'codigoStatusChamado':
               switch (data[item]) {
@@ -124,7 +149,11 @@ export class ChamadosDetailPage implements OnInit {
               this.chamado[item] = data[item];
               break;
             case 'solucaoChamado':
-              this.chamado[item] = data[item];
+              if (data[item] != null && data[item] != undefined && data[item] != '') {
+                this.chamado[item] = data[item];
+              } else {
+                this.chamado[item] = '-';
+              }
               break;
 
             default:
