@@ -101,7 +101,7 @@ export class ChamadosDetailPage implements OnInit {
               if (data[item] != null && data[item] != undefined && data[item] != '') {
                 this.chamado[item] = `${data[item].substr(8, 2)}/${data[item].substr(5, 2)}/${data[item].substr(0, 4)}`;
               } else {
-                this.chamado[item] = data[item];
+                this.chamado[item] = '-';
               }
               break;
             case 'horaFechamento':

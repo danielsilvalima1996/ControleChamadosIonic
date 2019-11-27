@@ -34,8 +34,8 @@ export class LoginPage implements OnInit {
   ngOnInit() {
     this.getScreenOrientationPortrait(); // Verificar Erro no Console, pois não está avaliado no Browser
     this.loginForm = this.fb.group({
-      username: ['daniel@daniel.com.br', Validators.email],
-      password: ['12345678', Validators.minLength(8)]
+      username: ['', Validators.email],
+      password: ['', Validators.minLength(8)]
     })
 
     this.loginForm.valueChanges
