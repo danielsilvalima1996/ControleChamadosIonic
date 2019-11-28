@@ -81,7 +81,7 @@ export class TrocarSenhaPage implements OnInit {
           this.sucessoMensagem();
         },
           (error: ErrorSpringBoot) => {
-            this.errorMensagem(error.error);
+            this.errorMensagem(error.message);
           })
     }
 
@@ -100,8 +100,7 @@ export class TrocarSenhaPage implements OnInit {
   async trocandoMensagem() {
     const alert = await this.alertController.create({
       header: 'Alterando a senha!',
-      message: 'Alterando a senha ...',
-      backdropDismiss: false
+      message: 'Alterando a senha ...'
     });
 
     await alert.present();
